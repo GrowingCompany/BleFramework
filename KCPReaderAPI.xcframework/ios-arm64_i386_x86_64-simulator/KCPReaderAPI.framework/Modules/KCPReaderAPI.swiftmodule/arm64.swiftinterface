@@ -1,0 +1,598 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target arm64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name KCPReaderAPI
+import CoreBluetooth
+import Darwin
+import ExternalAccessory
+import Foundation
+@_exported import KCPReaderAPI
+import Swift
+public enum PKCS7 {
+}
+public enum Result {
+  case success
+  case failure(Swift.Error)
+  public var isSuccess: Swift.Bool {
+    get
+  }
+  public var isFailure: Swift.Bool {
+    get
+  }
+  public var error: Swift.Error? {
+    get
+  }
+}
+public protocol PaddingProtocol {
+  func add(to: Swift.Array<Swift.UInt8>, blockSize: Swift.Int) -> Swift.Array<Swift.UInt8>
+  func remove(from: Swift.Array<Swift.UInt8>, blockSize: Swift.Int?) -> Swift.Array<Swift.UInt8>
+}
+public enum Padding : KCPReaderAPI.PaddingProtocol {
+  case noPadding, zeroPadding, pkcs7, pkcs5
+  public func add(to: Swift.Array<Swift.UInt8>, blockSize: Swift.Int) -> Swift.Array<Swift.UInt8>
+  public func remove(from: Swift.Array<Swift.UInt8>, blockSize: Swift.Int?) -> Swift.Array<Swift.UInt8>
+  public static func == (a: KCPReaderAPI.Padding, b: KCPReaderAPI.Padding) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum BlockMode {
+  case ECB, CBC, PCBC, CFB, OFB, CTR
+  public static func == (a: KCPReaderAPI.BlockMode, b: KCPReaderAPI.BlockMode) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+extension AES {
+  convenience public init(key: Swift.String, iv: Swift.String, blockMode: KCPReaderAPI.BlockMode = .CBC, padding: KCPReaderAPI.Padding = .pkcs7) throws
+}
+extension Array where Element == Swift.UInt8 {
+  public func toBase64() -> Swift.String?
+  public init(base64: Swift.String)
+}
+public protocol RandomAccessCryptor : KCPReaderAPI.Updatable {
+  @discardableResult
+  mutating func seek(to: Swift.Int) -> Swift.Bool
+}
+extension ChaCha20 {
+  convenience public init(key: Swift.String, iv: Swift.String) throws
+}
+public enum Bit : Swift.Int {
+  case zero
+  case one
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol _UInt8Type {
+}
+extension UInt8 : KCPReaderAPI._UInt8Type {
+}
+extension UInt8 {
+  public func bits() -> [KCPReaderAPI.Bit]
+  public func bits() -> Swift.String
+}
+@_inheritsConvenienceInitializers open class TCPClient : KCPReaderAPI.Socket {
+  open func connect(timeout: Swift.Int) -> KCPReaderAPI.Result
+  open func close()
+  open func send(data: [KCPReaderAPI.Byte]) -> KCPReaderAPI.Result
+  open func send(string: Swift.String) -> KCPReaderAPI.Result
+  open func send(data: Foundation.Data) -> KCPReaderAPI.Result
+  open func read(_ expectlen: Swift.Int, timeout: Swift.Int = -1) -> [Swift.UInt8]
+  override public init(address: Swift.String, port: Swift.Int32)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers open class TCPServer : KCPReaderAPI.Socket {
+  open func listen() -> KCPReaderAPI.Result
+  open func accept(timeout: Swift.Int32 = 0) -> KCPReaderAPI.TCPClient?
+  open func close()
+  @objc deinit
+  override public init(address: Swift.String, port: Swift.Int32)
+}
+@_hasMissingDesignatedInitializers final public class Checksum {
+  @objc deinit
+}
+extension Checksum {
+  public static func crc32(_ message: Swift.Array<Swift.UInt8>, seed: Swift.UInt32? = nil, reflect: Swift.Bool = true) -> Swift.UInt32
+  public static func crc16(_ message: Swift.Array<Swift.UInt8>, seed: Swift.UInt16? = nil) -> Swift.UInt16
+}
+extension String {
+  public func md5() -> Swift.String
+  public func sha1() -> Swift.String
+  public func sha224() -> Swift.String
+  public func sha256() -> Swift.String
+  public func sha384() -> Swift.String
+  public func sha512() -> Swift.String
+  public func sha3(_ variant: KCPReaderAPI.SHA3.Variant) -> Swift.String
+  public func crc32(seed: Swift.UInt32? = nil, reflect: Swift.Bool = true) -> Swift.String
+  public func crc16(seed: Swift.UInt16? = nil) -> Swift.String
+  public func encrypt(cipher: KCPReaderAPI.Cipher) throws -> Swift.String
+  public func encryptToBase64(cipher: KCPReaderAPI.Cipher) throws -> Swift.String?
+  public func authenticate<A>(with authenticator: A) throws -> Swift.String where A : KCPReaderAPI.Authenticator
+}
+extension Rabbit {
+  convenience public init(key: Swift.String) throws
+  convenience public init(key: Swift.String, iv: Swift.String) throws
+}
+final public class SHA3 {
+  final public let blockSize: Swift.Int
+  final public let digestLength: Swift.Int
+  public enum Variant : Swift.RawRepresentable {
+    case sha224, sha256, sha384, sha512
+    public typealias RawValue = Swift.Int
+    public var rawValue: KCPReaderAPI.SHA3.Variant.RawValue {
+      get
+    }
+    public init?(rawValue: KCPReaderAPI.SHA3.Variant.RawValue)
+  }
+  public init(variant: KCPReaderAPI.SHA3.Variant)
+  final public func calculate(for bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  @objc deinit
+}
+extension SHA3 : KCPReaderAPI.Updatable {
+  final public func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8>
+}
+final public class MD5 {
+  public init()
+  final public func calculate(for bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  @objc deinit
+}
+extension MD5 : KCPReaderAPI.Updatable {
+  final public func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8>
+}
+final public class SHA1 {
+  public init()
+  final public func calculate(for bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  @objc deinit
+}
+extension SHA1 : KCPReaderAPI.Updatable {
+  final public func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8>
+}
+extension PKCS5 {
+  public struct PBKDF1 {
+    public enum Error : Swift.Error {
+      case invalidInput
+      case derivedKeyTooLong
+      public static func == (a: KCPReaderAPI.PKCS5.PBKDF1.Error, b: KCPReaderAPI.PKCS5.PBKDF1.Error) -> Swift.Bool
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+    }
+    public enum Variant {
+      case md5, sha1
+      public static func == (a: KCPReaderAPI.PKCS5.PBKDF1.Variant, b: KCPReaderAPI.PKCS5.PBKDF1.Variant) -> Swift.Bool
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+    }
+    public init(password: Swift.Array<Swift.UInt8>, salt: Swift.Array<Swift.UInt8>, variant: KCPReaderAPI.PKCS5.PBKDF1.Variant = .sha1, iterations: Swift.Int = 4096, keyLength: Swift.Int? = nil) throws
+    public func calculate() -> Swift.Array<Swift.UInt8>
+  }
+}
+extension String {
+  public func decryptBase64ToString(cipher: KCPReaderAPI.Cipher) throws -> Swift.String
+  public func decryptBase64(cipher: KCPReaderAPI.Cipher) throws -> Swift.Array<Swift.UInt8>
+}
+public typealias Byte = Swift.UInt8
+open class Socket {
+  final public let address: Swift.String
+  public var port: Swift.Int32 {
+    get
+  }
+  public var fd: Swift.Int32? {
+    get
+  }
+  public init(address: Swift.String, port: Swift.Int32)
+  @objc deinit
+}
+public enum SocketError : Swift.Error {
+  case queryFailed
+  case connectionClosed
+  case connectionTimeout
+  case unknownError
+  public static func == (a: KCPReaderAPI.SocketError, b: KCPReaderAPI.SocketError) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+final public class Rabbit {
+  public enum Error : Swift.Error {
+    case invalidKeyOrInitializationVector
+    public static func == (a: KCPReaderAPI.Rabbit.Error, b: KCPReaderAPI.Rabbit.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public static let ivSize: Swift.Int
+  public static let keySize: Swift.Int
+  public static let blockSize: Swift.Int
+  convenience public init(key: Swift.Array<Swift.UInt8>) throws
+  public init(key: Swift.Array<Swift.UInt8>, iv: Swift.Array<Swift.UInt8>?) throws
+  @objc deinit
+}
+extension Rabbit : KCPReaderAPI.Cipher {
+  final public func encrypt(_ bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  final public func decrypt(_ bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+}
+public protocol Authenticator {
+  func authenticate(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+}
+public protocol Updatable {
+  mutating func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool) throws -> Swift.Array<Swift.UInt8>
+  mutating func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool, output: (Swift.Array<Swift.UInt8>) -> Swift.Void) throws
+  mutating func finish(withBytes bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  mutating func finish(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, output: (Swift.Array<Swift.UInt8>) -> Swift.Void) throws
+}
+extension Updatable {
+  public mutating func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false, output: (Swift.Array<Swift.UInt8>) -> Swift.Void) throws
+  public mutating func finish(withBytes bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  public mutating func finish() throws -> Swift.Array<Swift.UInt8>
+  public mutating func finish(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, output: (Swift.Array<Swift.UInt8>) -> Swift.Void) throws
+  public mutating func finish(output: (Swift.Array<Swift.UInt8>) -> Swift.Void) throws
+}
+extension Updatable {
+  public mutating func update(withBytes bytes: Swift.Array<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8>
+  public mutating func update(withBytes bytes: Swift.Array<Swift.UInt8>, isLast: Swift.Bool = false, output: (Swift.Array<Swift.UInt8>) -> Swift.Void) throws
+  public mutating func finish(withBytes bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  public mutating func finish(withBytes bytes: Swift.Array<Swift.UInt8>, output: (Swift.Array<Swift.UInt8>) -> Swift.Void) throws
+}
+final public class SHA2 {
+  public enum Variant : Swift.RawRepresentable {
+    case sha224, sha256, sha384, sha512
+    public var digestLength: Swift.Int {
+      get
+    }
+    public var blockSize: Swift.Int {
+      get
+    }
+    public typealias RawValue = Swift.Int
+    public var rawValue: KCPReaderAPI.SHA2.Variant.RawValue {
+      get
+    }
+    public init?(rawValue: KCPReaderAPI.SHA2.Variant.RawValue)
+  }
+  public init(variant: KCPReaderAPI.SHA2.Variant)
+  final public func calculate(for bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  @objc deinit
+}
+extension SHA2 : KCPReaderAPI.Updatable {
+  final public func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8>
+}
+public enum CipherError : Swift.Error {
+  case encrypt
+  case decrypt
+  public static func == (a: KCPReaderAPI.CipherError, b: KCPReaderAPI.CipherError) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public protocol Cipher : AnyObject {
+  func encrypt(_ bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  func encrypt(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  func decrypt(_ bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  func decrypt(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+}
+extension Cipher {
+  public func encrypt(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  public func decrypt(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+}
+final public class HMAC : KCPReaderAPI.Authenticator {
+  public enum Error : Swift.Error {
+    case authenticateError
+    case invalidInput
+    public static func == (a: KCPReaderAPI.HMAC.Error, b: KCPReaderAPI.HMAC.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum Variant {
+    case sha1, sha256, sha384, sha512, md5
+    public static func == (a: KCPReaderAPI.HMAC.Variant, b: KCPReaderAPI.HMAC.Variant) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public init(key: Swift.Array<Swift.UInt8>, variant: KCPReaderAPI.HMAC.Variant = .md5)
+  final public func authenticate(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  @objc deinit
+}
+final public class ChaCha20 {
+  public enum Error : Swift.Error {
+    case invalidKeyOrInitializationVector
+    public static func == (a: KCPReaderAPI.ChaCha20.Error, b: KCPReaderAPI.ChaCha20.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public static let blockSize: Swift.Int
+  public init(key: Swift.Array<Swift.UInt8>, iv nonce: Swift.Array<Swift.UInt8>) throws
+  @objc deinit
+}
+extension ChaCha20 : KCPReaderAPI.Cipher {
+  final public func encrypt(_ bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  final public func decrypt(_ bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+}
+extension ChaCha20 {
+  public struct Encryptor : KCPReaderAPI.Updatable {
+    public mutating func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8>
+  }
+}
+extension ChaCha20 {
+  public struct Decryptor : KCPReaderAPI.Updatable {
+    public mutating func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = true) throws -> Swift.Array<Swift.UInt8>
+  }
+}
+extension ChaCha20 : KCPReaderAPI.Cryptors {
+  final public func makeEncryptor() -> KCPReaderAPI.ChaCha20.Encryptor
+  final public func makeDecryptor() -> KCPReaderAPI.ChaCha20.Decryptor
+  public typealias EncryptorType = KCPReaderAPI.ChaCha20.Encryptor
+  public typealias DecryptorType = KCPReaderAPI.ChaCha20.Decryptor
+}
+extension Data {
+  public func checksum() -> Swift.UInt16
+  public func md5() -> Foundation.Data
+  public func sha1() -> Foundation.Data
+  public func sha224() -> Foundation.Data
+  public func sha256() -> Foundation.Data
+  public func sha384() -> Foundation.Data
+  public func sha512() -> Foundation.Data
+  public func sha3(_ variant: KCPReaderAPI.SHA3.Variant) -> Foundation.Data
+  public func crc32(seed: Swift.UInt32? = nil, reflect: Swift.Bool = true) -> Foundation.Data
+  public func crc16(seed: Swift.UInt16? = nil) -> Foundation.Data
+  public func encrypt(cipher: KCPReaderAPI.Cipher) throws -> Foundation.Data
+  public func decrypt(cipher: KCPReaderAPI.Cipher) throws -> Foundation.Data
+  public func authenticate(with authenticator: KCPReaderAPI.Authenticator) throws -> Foundation.Data
+}
+extension Data {
+  public var bytes: Swift.Array<Swift.UInt8> {
+    get
+  }
+  public func toHexString() -> Swift.String
+}
+extension Array where Element == Swift.UInt8 {
+  public func toHexString() -> Swift.String
+}
+extension Array where Element == Swift.UInt8 {
+  public func md5() -> [Element]
+  public func sha1() -> [Element]
+  public func sha224() -> [Element]
+  public func sha256() -> [Element]
+  public func sha384() -> [Element]
+  public func sha512() -> [Element]
+  public func sha2(_ variant: KCPReaderAPI.SHA2.Variant) -> [Element]
+  public func sha3(_ variant: KCPReaderAPI.SHA3.Variant) -> [Element]
+  public func crc32(seed: Swift.UInt32? = nil, reflect: Swift.Bool = true) -> Swift.UInt32
+  public func crc16(seed: Swift.UInt16? = nil) -> Swift.UInt16
+  public func encrypt(cipher: KCPReaderAPI.Cipher) throws -> [Element]
+  public func decrypt(cipher: KCPReaderAPI.Cipher) throws -> [Element]
+  public func authenticate<A>(with authenticator: A) throws -> [Element] where A : KCPReaderAPI.Authenticator
+}
+final public class Blowfish {
+  public enum Error : Swift.Error {
+    case dataPaddingRequired
+    case invalidKeyOrInitializationVector
+    case invalidInitializationVector
+    public static func == (a: KCPReaderAPI.Blowfish.Error, b: KCPReaderAPI.Blowfish.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public static let blockSize: Swift.Int
+  public init(key: Swift.Array<Swift.UInt8>, iv: Swift.Array<Swift.UInt8>? = nil, blockMode: KCPReaderAPI.BlockMode = .CBC, padding: KCPReaderAPI.Padding) throws
+  @objc deinit
+}
+extension Blowfish : KCPReaderAPI.Cipher {
+  final public func encrypt<C>(_ bytes: C) throws -> Swift.Array<Swift.UInt8> where C : Swift.Collection, C.Element == Swift.UInt8, C.Index == Swift.Int
+  final public func decrypt<C>(_ bytes: C) throws -> Swift.Array<Swift.UInt8> where C : Swift.Collection, C.Element == Swift.UInt8, C.Index == Swift.Int
+}
+final public class AES {
+  public enum Error : Swift.Error {
+    case dataPaddingRequired
+    case invalidKeyOrInitializationVector
+    case invalidInitializationVector
+    case invalidData
+    public static func == (a: KCPReaderAPI.AES.Error, b: KCPReaderAPI.AES.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public enum Variant : Swift.Int {
+    case aes128, aes192, aes256
+    public typealias RawValue = Swift.Int
+    public init?(rawValue: Swift.Int)
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public static let blockSize: Swift.Int
+  final public var variant: KCPReaderAPI.AES.Variant {
+    get
+  }
+  public init(key: Swift.Array<Swift.UInt8>, iv: Swift.Array<Swift.UInt8>? = nil, blockMode: KCPReaderAPI.BlockMode = .CBC, padding: KCPReaderAPI.Padding = .pkcs7) throws
+  @objc deinit
+}
+extension AES {
+  public struct Encryptor : KCPReaderAPI.Updatable {
+    public mutating func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8>
+  }
+}
+extension AES {
+  public struct Decryptor : KCPReaderAPI.RandomAccessCryptor {
+    public mutating func update(withBytes bytes: Swift.ArraySlice<Swift.UInt8>, isLast: Swift.Bool = false) throws -> Swift.Array<Swift.UInt8>
+    @discardableResult
+    public mutating func seek(to position: Swift.Int) -> Swift.Bool
+  }
+}
+extension AES : KCPReaderAPI.Cryptors {
+  final public func makeEncryptor() -> KCPReaderAPI.AES.Encryptor
+  final public func makeDecryptor() -> KCPReaderAPI.AES.Decryptor
+  public typealias EncryptorType = KCPReaderAPI.AES.Encryptor
+  public typealias DecryptorType = KCPReaderAPI.AES.Decryptor
+}
+extension AES : KCPReaderAPI.Cipher {
+  final public func encrypt(_ bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  final public func decrypt(_ bytes: Swift.ArraySlice<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+}
+final public class Poly1305 : KCPReaderAPI.Authenticator {
+  public enum Error : Swift.Error {
+    case authenticateError
+    public static func == (a: KCPReaderAPI.Poly1305.Error, b: KCPReaderAPI.Poly1305.Error) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public static let blockSize: Swift.Int
+  public init(key: Swift.Array<Swift.UInt8>)
+  final public func authenticate(_ bytes: Swift.Array<Swift.UInt8>) throws -> Swift.Array<Swift.UInt8>
+  @objc deinit
+}
+extension Array {
+  public func chunks(size chunksize: Swift.Int) -> Swift.Array<Swift.Array<Element>>
+}
+extension Array where Element == Swift.UInt8 {
+  public init(hex: Swift.String)
+}
+@available(*, deprecated, renamed: "Digest")
+public typealias Hash = KCPReaderAPI.Digest
+public struct Digest {
+  public static func md5(_ bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  public static func sha1(_ bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  public static func sha224(_ bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  public static func sha256(_ bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  public static func sha384(_ bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  public static func sha512(_ bytes: Swift.Array<Swift.UInt8>) -> Swift.Array<Swift.UInt8>
+  public static func sha2(_ bytes: Swift.Array<Swift.UInt8>, variant: KCPReaderAPI.SHA2.Variant) -> Swift.Array<Swift.UInt8>
+  public static func sha3(_ bytes: Swift.Array<Swift.UInt8>, variant: KCPReaderAPI.SHA3.Variant) -> Swift.Array<Swift.UInt8>
+}
+extension PKCS5 {
+  public struct PBKDF2 {
+    public enum Error : Swift.Error {
+      case invalidInput
+      case derivedKeyTooLong
+      public static func == (a: KCPReaderAPI.PKCS5.PBKDF2.Error, b: KCPReaderAPI.PKCS5.PBKDF2.Error) -> Swift.Bool
+      public var hashValue: Swift.Int {
+        get
+      }
+      public func hash(into hasher: inout Swift.Hasher)
+    }
+    public init(password: Swift.Array<Swift.UInt8>, salt: Swift.Array<Swift.UInt8>, iterations: Swift.Int = 4096, keyLength: Swift.Int? = nil, variant: KCPReaderAPI.HMAC.Variant = .sha256) throws
+    public func calculate() throws -> Swift.Array<Swift.UInt8>
+  }
+}
+public enum PKCS5 {
+}
+@objc public protocol SecureAPIDeliagate : AnyObject {
+  @objc func handleMessage(what: Swift.Int, arg1: Swift.Int, arg2: Swift.Int, msg: Swift.String, data: Swift.Dictionary<Swift.String, Swift.String>)
+}
+@_inheritsConvenienceInitializers @objc public class KcpReaderAPI : ObjectiveC.NSObject {
+  @objc weak public var delegate: KCPReaderAPI.SecureAPIDeliagate?
+  @objc public func KCP_init_library(server: Swift.Int, device: Swift.Int, ipek: Swift.Int)
+  @objc public func KCP_set_mode_debug(debug_log: Swift.Bool, debug_packet: Swift.Bool)
+  @objc public func KCP_set_device_info(deviceInfo: Swift.String)
+  @objc public func KCP_start_watch_ble_connect()
+  @objc public func KCP_get_version() -> Swift.String
+  @objc public func KCP_bt_connect(deviceInfo: Swift.String) -> Swift.Int
+  @objc public func KCP_bt_close() -> Swift.Int
+  @objc public func KCP_check_app_integrity(reader_sn: Swift.String, app_hash: Swift.String) -> Swift.Int
+  @objc public func KCP_check_app_integrity(reader_sn: Swift.String) -> Swift.Int
+  @objc public func KCP_get_reader_state() -> Swift.Int
+  @objc public func KCP_reader_integrity() -> Swift.Int
+  @objc public func KCP_init_reader() -> Swift.Int
+  @objc public func KCP_download(msgNo: Swift.Int, tid: Swift.String, bussNo: Swift.String) -> Swift.Int
+  @objc public func KCP_start_key_download(msgNo: Swift.Int, tid: Swift.String, bussNo: Swift.String) -> Swift.Int
+  @objc public func KCP_ic_payment(isModeKeyIn: Swift.Bool) -> Swift.Int
+  @objc public func KCP_ic_read(trdKind: Swift.Int, tid: Swift.String, totalAmount: Swift.Int) -> Swift.Int
+  @objc public func KCP_ic_payment_request(msgNo: Swift.Int, tid: Swift.String, inst: Swift.Int, totalAmt: Swift.Int, taxFreeAmt: Swift.Int, svcAmt: Swift.Int, tax: Swift.Int, printOpt: Swift.String, reserveData: Swift.String, signInfo: Swift.String, signData: Swift.String, userData: [Swift.UInt8]) -> Swift.Int
+  @objc public func KCP_ic_cancel(isModeKeyIn: Swift.Bool) -> Swift.Int
+  @objc public func KCP_ic_cancel_request(msgNo: Swift.Int, tid: Swift.String, inst: Swift.Int, totalAmt: Swift.Int, taxFreeAmt: Swift.Int, svcAmt: Swift.Int, tax: Swift.Int, printOpt: Swift.String, reserveData: Swift.String, signInfo: Swift.String, signData: Swift.String, userData: [Swift.UInt8], trdDate: Swift.String, apprNo: Swift.String) -> Swift.Int
+  @objc public func KCP_select_aid(name: Swift.String) -> Swift.Int
+  @objc public func KCP_cancel_select_aid() -> Swift.Int
+  @objc public func KCP_encrypt_cardNo(trdKind: Swift.Int, cNo: Swift.String) -> Swift.Int
+  @objc public func KCP_cash_payment_start() -> Swift.Int
+  @objc public func KCP_general_read(trdKind: Swift.Int, inputKind: Swift.Int, input: Swift.String) -> Swift.Int
+  @objc public func KCP_cash_payment_request(msgNo: Swift.Int, tid: Swift.String, totalAmt: Swift.Int, taxFreeAmt: Swift.Int, svcAmt: Swift.Int, tax: Swift.Int, printOpt: Swift.String, reserveData: Swift.String, userData: [Swift.UInt8], custKind: Swift.Int) -> Swift.Int
+  @objc public func KCP_cash_cancel_start() -> Swift.Int
+  @objc public func KCP_cash_cancel_request(msgNo: Swift.Int, tid: Swift.String, totalAmt: Swift.Int, taxFreeAmt: Swift.Int, svcAmt: Swift.Int, tax: Swift.Int, printOpt: Swift.String, reserveData: Swift.String, userData: [Swift.UInt8], custKind: Swift.Int, cancelReason: Swift.Int, trdDate: Swift.String, apprNo: Swift.String) -> Swift.Int
+  @objc public func KCP_bt_send(data_send: Foundation.NSData) -> Swift.Int
+  @objc public func KCP_start_device_scan() -> Swift.Int
+  @objc public func KCP_start_device_scan(deviceInfo: Swift.String) -> Swift.Int
+  @objc public func KCP_clear_payment_info()
+  @objc public func KCP_send_receipt(tradeKind: Swift.Int, totalAmt: Swift.Int, sendWay: Swift.Int, email: Swift.String, receiptData: Foundation.NSData) -> Swift.Int
+  @objc public func KCP_cup_payment() -> Swift.Int
+  @objc public func KCP_cup_cancel() -> Swift.Int
+  @objc public func KCP_set_cup_ic_trade(pin: Swift.String) -> Swift.Int
+  @objc public func KCP_change_model(model: Swift.String) -> Swift.Int
+  @objc public func KCP_get_power_save_mode() -> Swift.Int
+  @objc public func KCP_set_power_save_mode(mode: Swift.Bool) -> Swift.Int
+  @objc public class func getInstance() -> KCPReaderAPI.KcpReaderAPI
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension HMAC {
+  convenience public init(key: Swift.String, variant: KCPReaderAPI.HMAC.Variant = .md5) throws
+}
+extension Blowfish {
+  convenience public init(key: Swift.String, iv: Swift.String, blockMode: KCPReaderAPI.BlockMode = .CBC, padding: KCPReaderAPI.Padding = .pkcs7) throws
+}
+public protocol Cryptors : AnyObject {
+  associatedtype EncryptorType : KCPReaderAPI.Updatable
+  associatedtype DecryptorType : KCPReaderAPI.Updatable
+  func makeEncryptor() -> Self.EncryptorType
+  func makeDecryptor() -> Self.DecryptorType
+  static func randomIV(_ blockSize: Swift.Int) -> Swift.Array<Swift.UInt8>
+}
+extension Cryptors {
+  public static func randomIV(_ blockSize: Swift.Int) -> Swift.Array<Swift.UInt8>
+}
+extension KCPReaderAPI.Padding : Swift.Equatable {}
+extension KCPReaderAPI.Padding : Swift.Hashable {}
+extension KCPReaderAPI.BlockMode : Swift.Equatable {}
+extension KCPReaderAPI.BlockMode : Swift.Hashable {}
+extension KCPReaderAPI.Bit : Swift.Equatable {}
+extension KCPReaderAPI.Bit : Swift.Hashable {}
+extension KCPReaderAPI.Bit : Swift.RawRepresentable {}
+extension KCPReaderAPI.SHA3.Variant : Swift.Equatable {}
+extension KCPReaderAPI.SHA3.Variant : Swift.Hashable {}
+extension KCPReaderAPI.PKCS5.PBKDF1.Error : Swift.Equatable {}
+extension KCPReaderAPI.PKCS5.PBKDF1.Error : Swift.Hashable {}
+extension KCPReaderAPI.PKCS5.PBKDF1.Variant : Swift.Equatable {}
+extension KCPReaderAPI.PKCS5.PBKDF1.Variant : Swift.Hashable {}
+extension KCPReaderAPI.SocketError : Swift.Equatable {}
+extension KCPReaderAPI.SocketError : Swift.Hashable {}
+extension KCPReaderAPI.Rabbit.Error : Swift.Equatable {}
+extension KCPReaderAPI.Rabbit.Error : Swift.Hashable {}
+extension KCPReaderAPI.SHA2.Variant : Swift.Equatable {}
+extension KCPReaderAPI.SHA2.Variant : Swift.Hashable {}
+extension KCPReaderAPI.CipherError : Swift.Equatable {}
+extension KCPReaderAPI.CipherError : Swift.Hashable {}
+extension KCPReaderAPI.HMAC.Error : Swift.Equatable {}
+extension KCPReaderAPI.HMAC.Error : Swift.Hashable {}
+extension KCPReaderAPI.HMAC.Variant : Swift.Equatable {}
+extension KCPReaderAPI.HMAC.Variant : Swift.Hashable {}
+extension KCPReaderAPI.ChaCha20.Error : Swift.Equatable {}
+extension KCPReaderAPI.ChaCha20.Error : Swift.Hashable {}
+extension KCPReaderAPI.Blowfish.Error : Swift.Equatable {}
+extension KCPReaderAPI.Blowfish.Error : Swift.Hashable {}
+extension KCPReaderAPI.AES.Error : Swift.Equatable {}
+extension KCPReaderAPI.AES.Error : Swift.Hashable {}
+extension KCPReaderAPI.AES.Variant : Swift.Equatable {}
+extension KCPReaderAPI.AES.Variant : Swift.Hashable {}
+extension KCPReaderAPI.AES.Variant : Swift.RawRepresentable {}
+extension KCPReaderAPI.Poly1305.Error : Swift.Equatable {}
+extension KCPReaderAPI.Poly1305.Error : Swift.Hashable {}
+extension KCPReaderAPI.PKCS5.PBKDF2.Error : Swift.Equatable {}
+extension KCPReaderAPI.PKCS5.PBKDF2.Error : Swift.Hashable {}
