@@ -222,7 +222,6 @@ SWIFT_CLASS("_TtC12KCPReaderAPI12KcpReaderAPI")
 - (NSInteger)KCP_bt_connectWithDeviceInfo:(NSString * _Nonnull)deviceInfo SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_bt_close SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_check_app_integrityWithReader_sn:(NSString * _Nonnull)reader_sn app_hash:(NSString * _Nonnull)app_hash SWIFT_WARN_UNUSED_RESULT;
-- (NSInteger)KCP_check_app_integrityWithReader_sn:(NSString * _Nonnull)reader_sn SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_get_reader_state SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_reader_integrity SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_init_reader SWIFT_WARN_UNUSED_RESULT;
@@ -491,7 +490,6 @@ SWIFT_CLASS("_TtC12KCPReaderAPI12KcpReaderAPI")
 - (NSInteger)KCP_bt_connectWithDeviceInfo:(NSString * _Nonnull)deviceInfo SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_bt_close SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_check_app_integrityWithReader_sn:(NSString * _Nonnull)reader_sn app_hash:(NSString * _Nonnull)app_hash SWIFT_WARN_UNUSED_RESULT;
-- (NSInteger)KCP_check_app_integrityWithReader_sn:(NSString * _Nonnull)reader_sn SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_get_reader_state SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_reader_integrity SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_init_reader SWIFT_WARN_UNUSED_RESULT;

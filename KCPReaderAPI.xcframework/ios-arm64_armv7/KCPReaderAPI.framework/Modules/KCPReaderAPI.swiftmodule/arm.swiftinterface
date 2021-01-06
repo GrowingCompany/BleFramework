@@ -508,7 +508,6 @@ public enum PKCS5 {
   @objc public func KCP_bt_connect(deviceInfo: Swift.String) -> Swift.Int
   @objc public func KCP_bt_close() -> Swift.Int
   @objc public func KCP_check_app_integrity(reader_sn: Swift.String, app_hash: Swift.String) -> Swift.Int
-  @objc public func KCP_check_app_integrity(reader_sn: Swift.String) -> Swift.Int
   @objc public func KCP_get_reader_state() -> Swift.Int
   @objc public func KCP_reader_integrity() -> Swift.Int
   @objc public func KCP_init_reader() -> Swift.Int
