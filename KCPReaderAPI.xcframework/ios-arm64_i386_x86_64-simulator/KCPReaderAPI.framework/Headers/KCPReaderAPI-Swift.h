@@ -218,6 +218,7 @@ SWIFT_CLASS("_TtC12KCPReaderAPI12KcpReaderAPI")
 - (void)KCP_set_mode_debugWithDebug_log:(BOOL)debug_log debug_packet:(BOOL)debug_packet;
 - (void)KCP_set_device_infoWithDeviceInfo:(NSString * _Nonnull)deviceInfo;
 - (void)KCP_start_watch_ble_connect;
+- (void)KCP_stop_watch_ble_connect;
 - (NSString * _Nonnull)KCP_get_version SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_bt_connectWithDeviceInfo:(NSString * _Nonnull)deviceInfo SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_bt_close SWIFT_WARN_UNUSED_RESULT;
@@ -486,6 +487,7 @@ SWIFT_CLASS("_TtC12KCPReaderAPI12KcpReaderAPI")
 - (void)KCP_set_mode_debugWithDebug_log:(BOOL)debug_log debug_packet:(BOOL)debug_packet;
 - (void)KCP_set_device_infoWithDeviceInfo:(NSString * _Nonnull)deviceInfo;
 - (void)KCP_start_watch_ble_connect;
+- (void)KCP_stop_watch_ble_connect;
 - (NSString * _Nonnull)KCP_get_version SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_bt_connectWithDeviceInfo:(NSString * _Nonnull)deviceInfo SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_bt_close SWIFT_WARN_UNUSED_RESULT;
@@ -754,6 +756,7 @@ SWIFT_CLASS("_TtC12KCPReaderAPI12KcpReaderAPI")
 - (void)KCP_set_mode_debugWithDebug_log:(BOOL)debug_log debug_packet:(BOOL)debug_packet;
 - (void)KCP_set_device_infoWithDeviceInfo:(NSString * _Nonnull)deviceInfo;
 - (void)KCP_start_watch_ble_connect;
+- (void)KCP_stop_watch_ble_connect;
 - (NSString * _Nonnull)KCP_get_version SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_bt_connectWithDeviceInfo:(NSString * _Nonnull)deviceInfo SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)KCP_bt_close SWIFT_WARN_UNUSED_RESULT;

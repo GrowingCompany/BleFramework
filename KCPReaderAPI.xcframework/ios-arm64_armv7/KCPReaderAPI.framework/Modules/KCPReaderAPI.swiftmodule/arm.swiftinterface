@@ -504,6 +504,7 @@ public enum PKCS5 {
   @objc public func KCP_set_mode_debug(debug_log: Swift.Bool, debug_packet: Swift.Bool)
   @objc public func KCP_set_device_info(deviceInfo: Swift.String)
   @objc public func KCP_start_watch_ble_connect()
+  @objc public func KCP_stop_watch_ble_connect()
   @objc public func KCP_get_version() -> Swift.String
   @objc public func KCP_bt_connect(deviceInfo: Swift.String) -> Swift.Int
   @objc public func KCP_bt_close() -> Swift.Int
