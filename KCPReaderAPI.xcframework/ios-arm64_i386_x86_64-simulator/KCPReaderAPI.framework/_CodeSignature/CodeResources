@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		kshVAd+14QMoPZ3zU2uR1zGDD/k=
+		XCJsvT2pCPo4CuhAY2m4UR3WU+g=
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -42,7 +42,7 @@
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		kshVAd+14QMoPZ3zU2uR1zGDD/k=
+		XCJsvT2pCPo4CuhAY2m4UR3WU+g=
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/i386-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/i386-apple-ios-simulator.swiftmodule</key>
 		<data>
-		mThLPwlkNQQwLEF6XsEGhdKwuH0=
+		PWl9mPE4+9Sw+/yFQRfeznBVuOk=
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/i386.swiftdoc</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/i386.swiftmodule</key>
 		<data>
-		mThLPwlkNQQwLEF6XsEGhdKwuH0=
+		PWl9mPE4+9Sw+/yFQRfeznBVuOk=
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		sRIfHLatNk1XTMzaKLYWSks4YGU=
+		xEuYX0loAxKDgS5XFcOeTqosimw=
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -90,7 +90,7 @@
 		</data>
 		<key>Modules/KCPReaderAPI.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		sRIfHLatNk1XTMzaKLYWSks4YGU=
+		xEuYX0loAxKDgS5XFcOeTqosimw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -158,11 +158,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kshVAd+14QMoPZ3zU2uR1zGDD/k=
+			XCJsvT2pCPo4CuhAY2m4UR3WU+g=
 			</data>
 			<key>hash2</key>
 			<data>
-			OykJhf+owCNU3ULYYDv8IyI+I2VgWfb+6sucucy6czo=
+			QrVGfYlXlGehn/5HB1K/QDEFRTi99bclPwx/oJ6t5P8=
 			</data>
 		</dict>
 		<key>Modules/KCPReaderAPI.swiftmodule/arm64.swiftdoc</key>
@@ -191,11 +191,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kshVAd+14QMoPZ3zU2uR1zGDD/k=
+			XCJsvT2pCPo4CuhAY2m4UR3WU+g=
 			</data>
 			<key>hash2</key>
 			<data>
-			OykJhf+owCNU3ULYYDv8IyI+I2VgWfb+6sucucy6czo=
+			QrVGfYlXlGehn/5HB1K/QDEFRTi99bclPwx/oJ6t5P8=
 			</data>
 		</dict>
 		<key>Modules/KCPReaderAPI.swiftmodule/i386-apple-ios-simulator.swiftdoc</key>
@@ -224,11 +224,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mThLPwlkNQQwLEF6XsEGhdKwuH0=
+			PWl9mPE4+9Sw+/yFQRfeznBVuOk=
 			</data>
 			<key>hash2</key>
 			<data>
-			SlvNgPYjw+s0OgkI/gMW6EKSyqf/1QUrWlhV2+SKcFo=
+			H9JIu5fzgEhPMJe/a//TmnPG+60aaPNLWtHgeWvX8BY=
 			</data>
 		</dict>
 		<key>Modules/KCPReaderAPI.swiftmodule/i386.swiftdoc</key>
@@ -257,11 +257,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mThLPwlkNQQwLEF6XsEGhdKwuH0=
+			PWl9mPE4+9Sw+/yFQRfeznBVuOk=
 			</data>
 			<key>hash2</key>
 			<data>
-			SlvNgPYjw+s0OgkI/gMW6EKSyqf/1QUrWlhV2+SKcFo=
+			H9JIu5fzgEhPMJe/a//TmnPG+60aaPNLWtHgeWvX8BY=
 			</data>
 		</dict>
 		<key>Modules/KCPReaderAPI.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -290,11 +290,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sRIfHLatNk1XTMzaKLYWSks4YGU=
+			xEuYX0loAxKDgS5XFcOeTqosimw=
 			</data>
 			<key>hash2</key>
 			<data>
-			Kd+hOp/VBS3fDrWTv3kNCLeVAUSfcu5Ns1G7DXGWnh0=
+			5WcsFSX8awbzbXtLrp0STIQQV0ojVmWNGrotMNTFnE0=
 			</data>
 		</dict>
 		<key>Modules/KCPReaderAPI.swiftmodule/x86_64.swiftdoc</key>
@@ -323,11 +323,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sRIfHLatNk1XTMzaKLYWSks4YGU=
+			xEuYX0loAxKDgS5XFcOeTqosimw=
 			</data>
 			<key>hash2</key>
 			<data>
-			Kd+hOp/VBS3fDrWTv3kNCLeVAUSfcu5Ns1G7DXGWnh0=
+			5WcsFSX8awbzbXtLrp0STIQQV0ojVmWNGrotMNTFnE0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
